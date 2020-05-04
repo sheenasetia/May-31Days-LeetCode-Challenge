@@ -1,0 +1,27 @@
+/*
+Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation.
+Note:
+The given integer is guaranteed to fit within the range of a 32-bit signed integer.
+You could assume no leading zero bit in the integer’s binary representation.
+
+Example:
+Input: 5
+Output: 2
+Explanation: The binary representation of 5 is 101, and its complement is 010. So you need to output 2.
+
+*/
+
+class Solution {
+    public int findComplement(int num) {
+        int n=num;
+        int c=0;
+        while(n>0)
+        {
+            num=num^(1<<c);
+            c++;
+            n=n>>1;    
+        }
+        return num;
+        
+    }
+}
