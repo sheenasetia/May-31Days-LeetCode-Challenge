@@ -17,7 +17,7 @@ class Solution {
         int c=0;
         while(n>0)
         {
-            num=num^(1<<c);
+            num=num^(1<<c);    // XOR Property :- 0^1 = 1 , 1^1 = 0
             c++;
             n=n>>1;    
         }
