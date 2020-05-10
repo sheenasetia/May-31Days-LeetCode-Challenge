@@ -1,0 +1,45 @@
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        
+        HashMap<Integer,ArrayList<Integer>> hm=new HashMap<Integer,ArrayList<Integer>>();
+        // key will be the person's number and corresponding arraylist will store all the persons that he trusts.
+        
+        for(int i=0;i<trust.length;i++)
+        {
+            if(hm.containsKey(trust[i][0]))
+            {
+                hm.get(trust[i][0]).add(trust[i][1]);
+            }
+            else
+            {
+                ArrayList<Integer> ar=new ArrayList<Integer>();
+                ar.add(trust[i][1]);
+                hm.put(trust[i][0],ar);
+            }
+        }
+        
+        int index=0;                //the person number that has no entry in hashmap i.e who doesn't trust anyone (the judge)
+        for(int i=1;i<=N;i++)
+        {
+            if(!hm.containsKey(i))
+                index=i;
+        }
+        
+        if(index!=0)                //if there is such person
+        {
+            for(int i=1;i<=N;i++)
+            {
+                if(hm.containsKey(i))   
+                {
+                    if(hm.get(i).contains(index))         //Also, if all others trust him
+                        continue;
+                    else                                  //if no, no judge
+                        return -1;
+                }
+            }
+        }
+        else                        //if no such person, no judge
+            return -1;
+        return index;
+    }
+}
