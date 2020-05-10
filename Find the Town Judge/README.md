@@ -1,3 +1,4 @@
+
 # Q: Find the Town Judge
 
 ![scr1](https://user-images.githubusercontent.com/42132857/81495564-ba9d2300-92ce-11ea-92d4-e3ed5e155f1e.PNG)
