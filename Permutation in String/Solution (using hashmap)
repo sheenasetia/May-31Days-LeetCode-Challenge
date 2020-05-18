@@ -1,0 +1,57 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        
+        if(s2==null || s1.length()>s2.length() || s1==null)
+            return false;
+        
+        // hm is the hashmap to store frequencies of string s1
+        HashMap<Character,Integer> hm =new HashMap<>();
+        
+        for(int i=0;i<s1.length();i++)
+        {
+            char ch=s1.charAt(i);
+            if(hm.isEmpty() || !hm.containsKey(ch))
+                hm.put(ch,1);
+            else
+                hm.replace(ch,hm.get(ch)+1);
+        }
+        
+        // str is the hashmap to store frequencies of string s2
+        HashMap<Character,Integer> str =new HashMap<>();
+        
+        int k=s1.length();
+        
+        for(int i=0;i<s2.length();i++)
+        {
+            char ch=s2.charAt(i);
+            
+            // put s1's length no. of characters
+            if(k>0)
+            {
+                if(str.containsKey(ch))
+                    str.replace(ch,str.get(ch)+1);
+                else
+                    str.put(ch,1);
+                k--;
+            }
+            
+            if(k==0)
+            {
+                // if str contains same characters and their frequencies as hm
+                if(str.equals(hm))
+                    return true;
+                else
+                {
+                    char demo=s2.charAt(i-s1.length()+1);
+                    if(str.get(demo)==1)
+                        str.remove(demo);     
+                    else
+                        str.replace(demo,str.get(demo)-1);
+                    k++;
+                }       
+            }   
+        }  
+        return false;
+        
+    }
+}
