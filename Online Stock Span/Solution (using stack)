@@ -1,0 +1,45 @@
+/**
+ Approach : when no smaller previous element is there , the answer is 1, 
+ thus, every price has 1 as stock value already
+ Therefore, if price of top of the stack is greater than current price, just push it into the stack
+ else , keep poping the stack and adding the stocks in current stock value 
+ and then push current element with this updated stock value. 
+ */
+
+class StockSpanner {
+
+    class Node {
+        int price;
+        int stock;
+    }
+    
+    private Stack<Node> st;
+    
+    public StockSpanner() {
+        
+        st=new Stack<Node>();
+    }
+    
+    public int next(int price) {
+        
+        Node n=new Node();
+        n.price=price;
+        n.stock=1;
+        
+        while(!st.empty() && price>= st.peek().price)
+        {
+            n.stock=(n.stock)+(st.peek().stock);
+            st.pop();
+        }
+        
+        st.push(n);
+        
+        return st.peek().stock;
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
