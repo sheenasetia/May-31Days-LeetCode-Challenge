@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int id=0;
+    public TreeNode bstFromPreorder(int[] preorder) {
+        TreeNode root=null;
+        root = helper(preorder, Integer.MAX_VALUE);
+        return root;
+    }
+    
+    TreeNode helper(int[] preorder,int limit)
+    {
+        if(id==preorder.length || preorder[id]>limit)
+            return null;
+        TreeNode root=new TreeNode(preorder[id]);
+        id++;
+        root.left=helper(preorder,root.val);
+        root.right=helper(preorder,limit);
+        return root;
+    }
+}
+
+// for explanation, Refer:- 
+// https://www.youtube.com/watch?v=RyAGEb4VWo0 
+// Also, Dry-Run for better understanding
