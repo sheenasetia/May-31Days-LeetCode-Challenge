@@ -1,0 +1,29 @@
+class Solution {
+    public int maxUncrossedLines(int[] A, int[] B) {
+        
+        //longest common subsequence approach
+        if(A.length==0 || B.length==0)
+            return 0;
+        
+        int dp[][]=new int[A.length][B.length];
+        for(int i=0;i<A.length;i++)
+            for(int j=0;j<B.length;j++)
+                dp[i][j]=-1;
+                
+        return LCS(A,B,0,0,dp);
+    }
+    
+    int LCS(int[] A,int[] B,int i,int j,int[][] dp)
+    {
+        if(i>=A.length || j>=B.length)
+            return 0;
+        
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        
+        if(A[i]==B[j])
+            return dp[i][j]=LCS(A,B,i+1,j+1,dp)+1;
+        else
+            return dp[i][j]=Math.max(LCS(A,B,i+1,j,dp),LCS(A,B,i,j+1,dp));
+    }
+}
