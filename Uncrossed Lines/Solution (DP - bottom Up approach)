@@ -1,0 +1,25 @@
+//bottom-up approach(Tabulation method)
+    public int maxUncrossedLines(int[] A, int[] B) {
+        if(A.length==0 || B.length==0)
+            return 0;
+        
+        int dp[][]=new int[A.length+1][B.length+1];
+        
+        //logic is same as top-down(memoization) approach, just that
+        //We will start filling from bottom dp[A.length][B.length] will store base case
+        //ans will lie in dp[0][0]
+        for(int i=A.length;i>=0;i--)
+            for(int j=B.length;j>=0;j--) {
+                if(i==A.length || j==B.length)
+                    dp[i][j]=0;
+                else if(A[i]==B[j])
+                    dp[i][j]=dp[i+1][j+1]+1;
+                else
+                    dp[i][j]=Math.max(dp[i+1][j],dp[i][j+1]);
+            }
+                
+        return dp[0][0];
+    }
+    
+  //  Refer : https://www.geeksforgeeks.org/tabulation-vs-memoization/
+  //  Refer : https://www.youtube.com/watch?v=UFMOzkUFEW4
