@@ -1,0 +1,41 @@
+// Solution Idea : (DP approach)
+
+// n  bits
+// 1 - 1
+// 2 - 1   pow of 2
+// 3 - 2   (bits(2)+bits(1))
+
+// 4 - 1   pow of 2
+// 5 - 2   (bits(4)+bits(1))
+// 6 - 2   (bits(4)+bits(2))
+// 7 - 3   (bits(4)+bits(3))
+
+// 8 - 1   pow of 2
+// 9 - 2   (bits(8)+bits(1))
+// so on...
+   
+class Solution {
+    public int[] countBits(int num) {
+        int[] res = new int[num+1];
+        res[0]=0;
+        
+        if(num>=1)
+        res[1]=1;
+        
+        int k=1;
+        for(int i=2;i<=num;i++)
+        {
+            if(i==k*2)
+            {
+                res[i]=1;
+                k=i;
+            }
+            else
+            {
+                res[i]=res[k]+res[i-k];
+            }
+        }
+        
+        return res;
+    }
+}
