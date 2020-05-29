@@ -1,0 +1,56 @@
+class Solution {
+    class graph {
+        int V;
+        ArrayList<ArrayList<Integer>> g=new ArrayList<>();
+        graph(int v)
+        {
+            V=v;
+            for(int i=0;i<V;i++)
+            {
+                g.add(new ArrayList<>());
+            }
+        }
+        
+        void addEdge(int v,int e)
+        {
+            g.get(v).add(e);
+        }
+        
+        boolean check(int i,boolean[] visited,boolean[] done)
+        {
+            if(done[i])
+                return false;
+            if(visited[i])
+                return true;
+            
+            visited[i]=true;
+            
+            for(int j=0;j<g.get(i).size();j++)
+            {
+                if(this.check(g.get(i).get(j),visited,done))
+                    return true;
+            }       
+            done[i] = true;
+            return false;
+        }
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        
+        graph obj=new graph(numCourses);
+        for(int i=0;i<prerequisites.length;i++)
+        {
+            obj.addEdge(prerequisites[i][0],prerequisites[i][1]);
+        }
+        
+        boolean visited[]=new boolean[numCourses];
+        boolean done[]=new boolean[numCourses];
+        
+        for(int i=0;i<numCourses;i++)
+        {
+            if(obj.check(i,visited,done)==true)
+                    return false;
+        }
+       return true;
+        
+    }
+}
