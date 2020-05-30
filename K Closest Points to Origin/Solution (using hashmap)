@@ -1,0 +1,46 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int K) {
+        
+        if(points.length<K)
+            return points;
+        
+        int res[][]=new int[K][2];
+        TreeMap<Integer,ArrayList<Integer>> hm=new TreeMap<>();
+        
+        for(int i=0;i<points.length;i++)
+        {
+            int dist=(int)Math.pow(points[i][0],2)+(int)Math.pow(points[i][1],2);
+            
+            if(hm.containsKey(dist))
+            {
+                hm.get(dist).add(i);
+            }
+            else
+            {
+                ArrayList<Integer> al=new ArrayList<>();
+                al.add(i);
+                hm.put(dist,al);
+            }
+        }
+        
+        int i=0;
+        Iterator hmIterator = hm.entrySet().iterator(); 
+  
+        while (hmIterator.hasNext() && i<K) { 
+            Map.Entry mapElement = (Map.Entry)hmIterator.next(); 
+            ArrayList<Integer> al=(ArrayList)mapElement.getValue();
+            
+            int j=0;
+            System.out.println(al.size());
+            while(j<al.size())
+            {
+                res[i]=points[al.get(j)];
+                j++;
+                i++;
+            }
+        
+        } 
+        
+        return res;
+    }
+}
